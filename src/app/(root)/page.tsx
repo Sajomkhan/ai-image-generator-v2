@@ -1,8 +1,10 @@
-"use client";
+"use client"
+import { useAppContext } from "@/context";
 import Image from "next/image";
 import { useState } from "react";
 
 const Home = () => {
+   const { state } = useAppContext();
   const [outputImage, setOutputImage] = useState<string | null>(null);
   const [imagePrompt, setImagePrompt] = useState<string | null>(null);
   const [isSubmited, setIsSubmited] = useState<boolean>(false);
@@ -21,7 +23,7 @@ const Home = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt: imagePrompt }),
+        body: JSON.stringify({ prompt: imagePrompt, state: state }),
       });
 
       const data = await response.json();
@@ -42,8 +44,8 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-dvh bg-gray-900 text-white py-6">
-      <div className="mx-auto max-w-screen-xl flex flex-col justify-center items-center gap-9 px-4 sm:px-6 lg:px-8">
+    <div className="w-5/6 py-6">
+      <div className="mx-auto flex flex-col justify-center items-center gap-9">
         {outputImage ? (
           <>
             <h1 className="text-2xl mt-6">Your Generated Image</h1>

@@ -25,15 +25,9 @@ const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
 
   return (
-    <div className="bg-black text-white border-b">
+    <div className="bg-gray-900">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-14  items-center justify-between">
-          <div className="flex-1 md:flex md:items-center md:gap-12">
-            {/* LOGO */}
-            <Link className="block text-teal-500 text-2xl font-bold" href="/">
-              AI Image Generator
-            </Link>
-          </div>
           {/* NAV MANU FOR DESTOP */}
           <div className="flex items-center gap-4 md:gap-12">
             <nav className="hidden md:block">

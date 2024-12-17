@@ -86,7 +86,7 @@ const Sidebar = () => {
                   className="w-14 bg-black py-1 px-2 rounded-md"
                   type="text"
                   name="width"
-                  value={size.width}
+                  value={state.size.width}
                   onChange={(e)=>setSize({...size, width:e.target.value})}
                 />
               </div>
@@ -97,7 +97,7 @@ const Sidebar = () => {
                   className="w-14 bg-black py-1 px-2 rounded-md"
                   type="text"
                   name="height"
-                  value={size.height}
+                  value={state.size.height}
                   onChange={(e)=>setSize({...size, height:e.target.value})}
                 />
               </div>

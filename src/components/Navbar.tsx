@@ -18,6 +18,10 @@ const sidebarMenu = [
     link: "/bgRemove",
     menu: "Bg Remove",
   },
+  {
+    link: "/imageDownload",
+    menu: "Image Download",
+  },
 ];
 
 const Navbar = () => {

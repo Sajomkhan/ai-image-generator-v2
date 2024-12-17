@@ -7,7 +7,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
       <Sidebar />
       <div className="w-full flex flex-col gap-10">
         <Navbar />
-        {children}
+        <div className="w-5/6 py-6 p-4 xl:p-8">{children}</div>
       </div>
     </div>
   );

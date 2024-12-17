@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
         prompt
       )}?seed=${randomSeed}&width=${state.size.width}&height=${
         state.size.height
-      }&nologo=True&filetype=png`;
+      }&nologo=True&filetype=jpeg`;
 
       imagesArray.push(imageURL);
     }

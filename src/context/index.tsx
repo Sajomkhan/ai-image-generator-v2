@@ -6,7 +6,8 @@ const AppContext = createContext<any>(undefined);
 export type State = {
     imageRatio: string,
     size: { width: number, height: number}
-    numberOfImage:number
+    numberOfImage:number,
+    imageUrls?: []
 }
 
 export function AppWrapper ({children}: {
@@ -15,7 +16,8 @@ export function AppWrapper ({children}: {
     const [state, setState] = useState<State>({
         imageRatio: "16:9",
         size: { width: 1744, height: 1088},
-        numberOfImage: 2
+        numberOfImage: 2,
+        imageUrls: []
     })
 
     return (

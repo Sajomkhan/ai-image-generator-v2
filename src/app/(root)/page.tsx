@@ -1,12 +1,14 @@
 "use client";
 import { useAppContext } from "@/context";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 const Home = () => {
   const { state, setState } = useAppContext();
-  const [imagePrompt, setImagePrompt] = useState<string | null>(null);
   const [isSubmited, setIsSubmited] = useState<boolean>(false);
+
+  console.log(state);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +30,7 @@ const Home = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt: imagePrompt, state: state }),
+        body: JSON.stringify({ prompt: state.prompt, state: state }),
       });
 
       const data = await response.json();
@@ -49,7 +51,31 @@ const Home = () => {
   };
 
   return (
-    <div className="mx-auto flex flex-col justify-center items-center gap-9">
+    <div className="flex flex-col justify-center items-center gap-9">
+      {/* PROMPT INPUT FORM */}
+      <form
+        onSubmit={handleSubmit}
+        className="w-full flex gap-6 justify-center items-center"
+      >
+        <div className="w-full flex flex-col gap-1">
+          <input
+            type="text"
+            placeholder="Enter your prompt"
+            value={state.prompt}
+            // onChange={(e) => setImagePrompt(e.target.value)}
+            onChange={(e) => setState({ ...state, prompt: e.target.value })}
+            className="w-full bg-gray-950 border border-gray-700 outline-gray-700 rounded-md py-2 px-4"
+          />
+        </div>
+        <button
+          disabled={isSubmited}
+          className={`${
+            isSubmited ? "bg-gray-500" : "bg-teal-500 hover:bg-teal-600"
+          } w-fit py-1.5 px-4 rounded-md text-white transition-all ease-linear duration-150`}
+        >
+          {isSubmited ? "Generating..." : "Generate"}
+        </button>
+      </form>
       {state.imageUrls.length > 0 ? (
         <>
           <h1 className="text-xl mt-6">Your Generated Image</h1>
@@ -58,17 +84,19 @@ const Home = () => {
             {state.imageUrls.map((img: string, index: number) => (
               <div
                 key={index}
-                className="flex flex-col gap-2 items-center bg-indigo-300 p-4 rounded-lg"
+                className="flex flex-col gap-2 items-center bg-gray-900 p-4 rounded-lg"
               >
-                <Image
-                  src={img}
-                  alt={`Generated image ${index + 1}`}
-                  width={state.size.width / 4}
-                  height={state.size.height / 4}
-                  className={`object-cover rounded-lg h-[${
-                    state.size.width / 4
-                  }px] w-[${state.size.width / 4}px]`}
-                />
+                <Link href={"largeImage"}>
+                  <Image
+                    src={img}
+                    alt={`Generated image ${index + 1}`}
+                    width={(state.size.width / 4) * 1.3}
+                    height={(state.size.height / 4) * 1.3}
+                    className={`object-cover rounded-lg h-[${
+                      (state.size.width / 4) * 1.3
+                    }px] w-[${(state.size.width / 4) * 1.3}px]`}
+                  />
+                </Link>
                 {/* Download Button */}
                 <a
                   onClick={() => window.open(img, "_blank")}
@@ -86,28 +114,6 @@ const Home = () => {
           Enter your prompt and hit generate!
         </div>
       )}
-      <form
-        onSubmit={handleSubmit}
-        className="flex gap-6 justify-center items-center"
-      >
-        {/* PROMPT INPUT */}
-        <div className="flex flex-col gap-1">
-          <input
-            type="text"
-            placeholder="Enter your prompt"
-            onChange={(e) => setImagePrompt(e.target.value)}
-            className="sm:w-[450px] md:w-[600px] xl:w-[850px] bg-gray-950 border border-gray-700 outline-gray-700 rounded-md py-2 px-4"
-          />
-        </div>
-        <button
-          disabled={isSubmited}
-          className={`${
-            isSubmited ? "bg-gray-500" : "bg-teal-500 hover:bg-teal-600"
-          } w-fit py-1.5 px-4 rounded-md text-white transition-all ease-linear duration-150`}
-        >
-          {isSubmited ? "Generating..." : "Generate"}
-        </button>
-      </form>
     </div>
   );
 };

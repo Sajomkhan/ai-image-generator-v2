@@ -7,7 +7,9 @@ export type State = {
     imageRatio: string,
     size: { width: number, height: number}
     numberOfImage:number,
-    imageUrls?: []
+    imageUrls: [],
+    prompt: string,
+    isSubmitted: boolean
 }
 
 export function AppWrapper ({children}: {
@@ -17,7 +19,9 @@ export function AppWrapper ({children}: {
         imageRatio: "16:9",
         size: { width: 1744, height: 1088},
         numberOfImage: 2,
-        imageUrls: []
+        imageUrls: [],
+        prompt: "",
+        isSubmitted: false
     })
 
     return (

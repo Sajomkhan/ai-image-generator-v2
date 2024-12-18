@@ -4,23 +4,24 @@ import { usePathname } from "next/navigation";
 import {  MdOutlineMenu } from "react-icons/md";
 import { useState } from "react";
 import { FaX } from "react-icons/fa6";
+import { FaHome } from "react-icons/fa";
 
 const sidebarMenu = [
   {
     link: "/",
-    menu: "Image Generator",
+    menu: <FaHome size={20}/>,
   },
   {
-    link: "/upscale",
-    menu: "Upscale",
+    link: "/largeImage",
+    menu: "Large Image",
   },
   {
     link: "/bgRemove",
     menu: "Bg Remove",
   },
   {
-    link: "/imageDownload",
-    menu: "Image Download",
+    link: "/imagePage",
+    menu: "Images",
   },
 ];
 

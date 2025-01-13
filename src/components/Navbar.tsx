@@ -5,6 +5,7 @@ import {  MdOutlineMenu } from "react-icons/md";
 import { useState } from "react";
 import { FaX } from "react-icons/fa6";
 import { FaHome } from "react-icons/fa";
+import { useAppContext } from "@/context";
 
 const sidebarMenu = [
   {
@@ -12,22 +13,15 @@ const sidebarMenu = [
     menu: <FaHome size={20}/>,
   },
   {
-    link: "/largeImage",
-    menu: "Large Image",
-  },
-  {
-    link: "/bgRemove",
-    menu: "Bg Remove",
-  },
-  {
-    link: "/imagePage",
-    menu: "Images",
+    link: "/autoDownload",
+    menu: "Auto Download",
   },
 ];
 
 const Navbar = () => {
   const pathname = usePathname();
   const [mobileMenu, setMobileMenu] = useState(false);
+  const {resetState} = useAppContext()
 
   return (
     <div className="bg-gray-900">
@@ -37,12 +31,12 @@ const Navbar = () => {
           <div className="flex items-center gap-4 md:gap-12">
             <nav className="hidden md:block">
               <ul className="flex items-center gap-6 text-sm">
-                {sidebarMenu.map((menu) => (
+                {sidebarMenu.map((menu, index) => (
                   <li
                     className={`${
                       menu.link === pathname ? "border-b border-gray-500" : ""
                     } w-fit hover:border-gray-500 py-0.5`}
-                    key={menu.menu}
+                    key={index}
                   >
                     <Link href={menu.link} className="">
                       {menu.menu}
@@ -75,12 +69,12 @@ const Navbar = () => {
                     <FaX />
                   </button>
                   <ul className="flex flex-col items-center text-lg">
-                    {sidebarMenu.map((menu) => (
+                    {sidebarMenu.map((menu, index) => (
                       <li
                         className={`${
                           menu.link === pathname && "font-bold"
                         } w-full mb-7 text-center hover:font-bold`}
-                        key={menu.menu}
+                        key={index}
                       >
                         <Link href={menu.link} className="">
                           {menu.menu}
@@ -92,6 +86,8 @@ const Navbar = () => {
               </div>
             </div>
           </div>
+          {/* Delete Storage */}
+          <button className="bg-white text-red-600 rounded-lg px-2" onClick={resetState}>Reset Data Storage</button>
         </div>
       </div>
     </div>

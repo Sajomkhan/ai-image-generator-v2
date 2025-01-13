@@ -3,7 +3,7 @@ import { useAppContext } from "@/context";
 import Image from "next/image";
 import { useState } from "react";
 
-const Home = () => {
+const AutoDownloadPage = () => {
   const { state, setState } = useAppContext();
   const [isSubmited, setIsSubmited] = useState<boolean>(false);
 
@@ -28,7 +28,7 @@ const Home = () => {
     }
 
     try {
-      const response = await fetch("/api/image", {
+      const response = await fetch("/api/autoDownload", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -125,4 +125,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default AutoDownloadPage;

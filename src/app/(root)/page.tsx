@@ -2,6 +2,9 @@
 import { useAppContext } from "@/context";
 import Image from "next/image";
 import { useState } from "react";
+import { State } from "../../context/index";
+import { handleBuffer, handleBufferAllImage } from "../../lib/actions/handleBuffer";
+import { FiDownload } from "react-icons/fi";
 
 const Home = () => {
   const { state, setState } = useAppContext();
@@ -39,7 +42,7 @@ const Home = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setState({ ...state, imageUrls: data });
+        setState({ ...state, imageUrls: [...data, ...state.imageUrls] });
       } else {
         alert(data.error || "An unexpected error occurred. Please try again.");
       }
@@ -53,9 +56,14 @@ const Home = () => {
     }
   };
 
-  function handelDelete() {
-    console.log("Image deleted");
-  }
+  const handelDelete = (indexToDelete: number) => {
+    setState((prevState: State) => ({
+      ...prevState,
+      imageUrls: prevState.imageUrls.filter(
+        (_, index) => index !== indexToDelete
+      ),
+    }));
+  };
 
   return (
     <div className="flex flex-col justify-center items-center gap-9">
@@ -85,8 +93,14 @@ const Home = () => {
       </form>
       {state.imageUrls.length > 0 ? (
         <>
-          <h1 className="text-xl mt-6">Your Generated Image</h1>
-          <div className="w-full flex flex-wrap gap-6 justify-center items-center">
+          <h1 className="text-xl mt-3">Your Generated Image</h1>
+          <button
+            onClick={() => handleBufferAllImage(state.imageUrls)}
+            className="xl:mr-32 self-end px-4 py-1 cursor-pointer rounded-md border hover:bg-teal-500/20 transition-all ease-in-out"
+          >
+            All Dwonload
+          </button>
+          <section className="w-full flex flex-wrap gap-6 justify-center items-center">
             {/* DISPLAY IMAGES */}
             {state.imageUrls.map((img: string, index: number) => (
               <div key={index} className="group relative">
@@ -105,16 +119,23 @@ const Home = () => {
                     }px] w-[${state.size.width / 4}px]`}
                   />
                 </a>
+                {/* Download Image */}
+                <div
+                  onClick={() => handleBuffer(img)}
+                  className="absolute bottom-3 right-1 hidden group-hover:flex  px-3 py-2 z-10 border rounded-md hover:text-teal-600"
+                >
+                  <FiDownload />
+                </div>
                 {/* Delete Button */}
                 <button
-                  onClick={handelDelete}
+                  onClick={() => handelDelete(index)}
                   className="absolute top-1 right-1 hidden group-hover:flex text-red-600 px-2 text-3xl z-10 border rounded-md"
                 >
                   &times;
                 </button>
               </div>
             ))}
-          </div>
+          </section>
         </>
       ) : (
         <div className="text-2xl text-center mt-60">

@@ -20,8 +20,9 @@ export async function POST(request: NextRequest) {
       }&nologo=True&filetype=jpeg`;
 
       imagesArray.push(imageURL);
+      console.log(imageURL);
     }
-    console.log(imagesArray);
+    // console.log(imagesArray);
     
 
     return NextResponse.json(imagesArray);

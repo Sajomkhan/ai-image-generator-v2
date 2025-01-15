@@ -10,7 +10,6 @@ export type State = {
     imageUrls: [],
     prompt: string,
     isSubmitted: boolean
-    imageReceiveType: "downloadedType" | "urlType"
 }
 
 export function AppWrapper({ children }: { children: React.ReactNode }) {
@@ -25,7 +24,6 @@ export function AppWrapper({ children }: { children: React.ReactNode }) {
                 imageUrls: [],
                 prompt: "",
                 isSubmitted: false,
-                imageReceiveType: "urlType"
             };
         }
         return {
@@ -35,7 +33,6 @@ export function AppWrapper({ children }: { children: React.ReactNode }) {
             imageUrls: [],
             prompt: "",
             isSubmitted: false,
-            imageReceiveType: "urlType"
         };
     });
 
@@ -54,7 +51,6 @@ export function AppWrapper({ children }: { children: React.ReactNode }) {
             imageUrls: [],
             prompt: "",
             isSubmitted: false,
-            imageReceiveType: "urlType"
         });
     };
 
@@ -69,40 +65,3 @@ export function useAppContext() {
     return useContext(AppContext);
 }
 
-
-// 'use client'
-// import { createContext, useContext, useState } from "react";
-
-// const AppContext = createContext<any>(undefined);
-
-// export type State = {
-//     imageRatio: string,
-//     size: { width: number, height: number}
-//     numberOfImage:number,
-//     imageUrls: [],
-//     prompt: string,
-//     isSubmitted: boolean
-// }
-
-// export function AppWrapper ({children}: {
-//     children: React.ReactNode
-// }) {
-//     const [state, setState] = useState<State>({
-//         imageRatio: "16:9",
-//         size: { width: 1744, height: 981},
-//         numberOfImage: 2,
-//         imageUrls: [],
-//         prompt: "",
-//         isSubmitted: false
-//     })
-
-//     return (
-//         <AppContext.Provider value={{state, setState}}>
-//             {children}
-//         </AppContext.Provider>
-//     )
-// }
-
-// export function useAppContext() {
-//     return useContext(AppContext)
-// }

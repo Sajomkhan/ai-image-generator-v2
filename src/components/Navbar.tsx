@@ -13,6 +13,10 @@ const sidebarMenu = [
     menu: <FaHome size={20}/>,
   },
   {
+    link: "/autoImage",
+    menu: "Auto Image",
+  },
+  {
     link: "/autoDownload",
     menu: "Auto Download",
   },
@@ -25,7 +29,7 @@ const Navbar = () => {
 
   return (
     <div className="bg-gray-900">
-      <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto lg:max-w-screen-lg xl:max-w-screen-2xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-14  items-center justify-between">
           {/* NAV MANU FOR DESTOP */}
           <div className="flex items-center gap-4 md:gap-12">
@@ -87,7 +91,7 @@ const Navbar = () => {
             </div>
           </div>
           {/* Delete Storage */}
-          <button className="bg-white text-red-600 rounded-lg px-2" onClick={resetState}>Reset Data Storage</button>
+          <button className="bg-gray-800 text-white rounded-lg px-5 py-1" onClick={resetState}>Reset Data Storage</button>
         </div>
       </div>
     </div>

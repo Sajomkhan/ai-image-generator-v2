@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
       const randomSeed = Math.floor(Math.random() * 100000000) + 1;
       const imageURL = `https://image.pollinations.ai/prompt/${encodeURIComponent(
         prompt
-      )}?seed=${randomSeed}&width=${state.size.width}&height=${
+      )}?model=${state.currentModel}&seed=${randomSeed}&width=${state.size.width}&height=${
         state.size.height
       }&nologo=True&filetype=jpeg`;
 

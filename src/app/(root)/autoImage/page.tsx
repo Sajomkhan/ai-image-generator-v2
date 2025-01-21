@@ -30,7 +30,7 @@ const AutoDownloadPage = () => {
       const id = setInterval(() => {
         console.log("Function is running at 1-minute intervals");
         autoImageDownoad(state);
-      }, 20000); // 1 minute = 60000ms
+      }, 10000); // 1 minute = 60000ms
 
       setIntervalId(id as unknown as number);
       setIsRunning(true);

@@ -74,7 +74,7 @@ export const autoImageDownoad = async (state) => {
 
   const imageURL = `https://image.pollinations.ai/prompt/${encodeURIComponent(
     state.prompt
-  )}?seed=${randomSeed}&width=${state.size.width}&height=${
+  )}?model=${state.currentModel}&seed=${randomSeed}&width=${state.size.width}&height=${
     state.size.height
   }&nologo=True&filetype=jpeg`;
 

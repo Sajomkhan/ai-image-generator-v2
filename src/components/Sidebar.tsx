@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useAppContext } from "@/context";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Sidebar = () => {
   const { state, setState } = useAppContext();
@@ -9,7 +9,8 @@ const Sidebar = () => {
     width: state.size.width,
     height: state.size.height,
   });
-  const [imageQty, setImageQty] = useState(state.numberOfImage);
+
+  console.log(state)
 
   function handleSetRatio(data: string) {
     // SIZE WILL AUTO CHANGE AS PER RATIO
@@ -40,13 +41,26 @@ const Sidebar = () => {
     }
   }
 
-  function handleApplySizeAndRatio() {
-    setState({
-      ...state,
-      size: { width: size.width, height: size.height },
-      numberOfImage: imageQty,
-    });
-  }
+  useEffect(() => {
+    const fetchModels = async () => {
+      try {
+        const response = await fetch("https://image.pollinations.ai/models");
+        if (!response.ok) {
+          throw new Error("Failed to fetch models");
+        }
+        const data = await response.json();
+        setState({
+          ...state,
+          models: data,
+        });
+      } catch (err: any) {
+        console.log(err.message || "An unexpected error occurred");
+      } finally {
+      }
+    };
+
+    fetchModels();
+  }, []);
 
   return (
     <div className="w-full flex flex-col gap-6 pl-4 py-6">
@@ -131,16 +145,28 @@ const Sidebar = () => {
             className="w-14 bg-black py-1 px-2 rounded-md"
             type="text"
             name="numberOfImage"
-            value={imageQty}
-            onChange={(e) => setImageQty(e.target.value)}
+            value={state.numberOfImage}
+            onChange={(e) =>
+              setState({ ...state, numberOfImage: e.target.value })
+            }
           />
         </div>
-        <button
-          onClick={handleApplySizeAndRatio}
-          className="bg-teal-600 cursor-pointer hover:bg-teal-700 max-w-fit px-3 py-1 rounded-md transition-all duration-150 ease-linear"
+        {/* ----------MODELS------------- */}
+        <select
+          name="models"
+          id="models"
+          className="w-32 rounded-md p-1 bg-gray-950 outline-none"
+          value={state.currentModel}
+          onChange={(e) =>
+            setState({ ...state, currentModel: e.target.value })
+          }
         >
-          Apply
-        </button>
+          {state.models.map((model: string) => (
+            <option key={model} value={model}>
+              {model}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );
